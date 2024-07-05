@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import express, { Application } from "express";
 import loaders from "./loaders";
 export default async function createApp(): Promise<Application> {
