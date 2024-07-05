@@ -8,18 +8,23 @@ on:
 jobs:
     ci-workflows:
         runs-on: ubuntu-latest
-
         steps:
-            - uses: actions/checkout@v2
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '20' # 최신 권장 버전인 Node.js 20 사용
 
             - name: Install dependencies
-              run: npm install
+              run: npm ci # npm ci를 사용하여 패키지를 더 빠르게 설치
 
             - name: Run tests
               run: npm test
 
             - name: Save coverage report
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   name: coverage-report
                   path: coverage/coverage-report.html
@@ -28,4 +33,4 @@ jobs:
               run: npm run format
 
             - name: Check for formatting changes
-              run: git diff --exit-code
+              run: git diff --exit-code || exit 1 # 포맷팅 변경 사항이 있을 경우 CI 실패로 처리
