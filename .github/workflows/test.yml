@@ -3,10 +3,10 @@ name: Node.js CI
 on:
     push:
         branches:
-            - "*"
+            - '*'
 
 jobs:
-    graphql-rest-api-test:
+    ci-workflows:
         runs-on: ubuntu-latest
 
         steps:
@@ -17,3 +17,9 @@ jobs:
 
             - name: Run tests
               run: npm test
+
+            - name: Format code with Prettier
+              run: npm run format
+
+            - name: Check for formatting changes
+              run: git diff --exit-code

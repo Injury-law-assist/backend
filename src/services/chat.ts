@@ -1,17 +1,17 @@
-import { Service } from "typedi";
+import { Service } from 'typedi';
 
 @Service()
 export default class ChatService {
     getMessages = async () => {
-        return "getMessages";
+        return 'getMessages';
     };
     getChatRoom = async () => {
-        return "getChatRoom";
+        return 'getChatRoom';
     };
     joinChatRoom = async () => {
-        return "joinChatRoom";
+        return 'joinChatRoom';
     };
     exitChatRoom = async () => {
-        return "exitChatRoom";
+        return 'exitChatRoom';
     };
 }

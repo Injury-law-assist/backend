@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import AuthService from "../../services/auth";
-import { Inject, Service } from "typedi";
+import { NextFunction, Request, Response } from 'express';
+import AuthService from '../../services/auth';
+import { Inject, Service } from 'typedi';
 
 @Service()
 export default class AuthController {

@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import ChatService from "../../services/chat";
-import { Inject, Service } from "typedi";
+import { NextFunction, Request, Response } from 'express';
+import ChatService from '../../services/chat';
+import { Inject, Service } from 'typedi';
 
 @Service()
 export default class ChatController {
