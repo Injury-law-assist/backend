@@ -9,29 +9,25 @@ describe('/api/chat test', () => {
     });
 
     it('✅[ GET /messages ] getMessages', async () => {
-        const res = await request(app).get('/api/chat/messages');
+        const res = await request(app).get('/api/chat/1/messages');
         expect(res.statusCode).toBe(200);
-        expect(res.body).toHaveProperty('msg');
-        expect(res.body.msg).toBe('getMessages');
+        expect(res.body).toHaveProperty('messages');
     });
     it('✅[ GET / ] getChatRoom', async () => {
         const res = await request(app).get('/api/chat');
         expect(res.statusCode).toBe(200);
-        expect(res.body).toHaveProperty('msg');
-        expect(res.body.msg).toBe('getChatRoom');
+        expect(res.body).toHaveProperty('chatRooms');
     });
 
     it('✅[ POST / ] joinChatRoom', async () => {
         const res = await request(app).post('/api/chat');
         expect(res.statusCode).toBe(200);
-        expect(res.body).toHaveProperty('msg');
-        expect(res.body.msg).toBe('joinChatRoom');
+        expect(res.body).toHaveProperty('newChatRoom');
     });
 
     it('✅[ DELETE / ] exitChatRoom', async () => {
-        const res = await request(app).delete('/api/chat');
+        const res = await request(app).delete('/api/chat/1');
         expect(res.statusCode).toBe(200);
         expect(res.body).toHaveProperty('msg');
-        expect(res.body.msg).toBe('exitChatRoom');
     });
 });
