@@ -1,17 +1,24 @@
-import { Service } from 'typedi';
+import { Inject, Service } from 'typedi';
+import ChatRepository from './../repositories/chat';
 
 @Service()
 export default class ChatService {
-    getMessages = async () => {
-        return 'getMessages';
+    constructor(@Inject(() => ChatRepository) private readonly chatRepository: ChatRepository) {}
+    getMessages = async ({ r_id }: { r_id: number }) => {
+        /**pageNation(Scrorll 기반으로 하기) */
+        return await this.chatRepository.getMessages({ r_id });
     };
-    getChatRoom = async () => {
-        return 'getChatRoom';
+    getChatRooms = async ({ u_id }: { u_id: number }) => {
+        /**pageNation(Scrorll 기반으로 하기) */
+        return await this.chatRepository.getChatRooms({ u_id });
     };
-    joinChatRoom = async () => {
-        return 'joinChatRoom';
+    generateChatRoom = async ({ u_id }: { u_id: number }) => {
+        return await this.chatRepository.generateChatRoom({ u_id });
     };
-    exitChatRoom = async () => {
-        return 'exitChatRoom';
+    deleteChatRoom = async ({ r_id }: { r_id: number }) => {
+        /**내가 소유한 chatroom인지 check */
+        /**존재하는 chatroom인지 check */
+        /**return은 얘는 메시지만 */
+        return await this.chatRepository.deleteChatRoom({ r_id });
     };
 }
