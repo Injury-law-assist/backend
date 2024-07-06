@@ -5,7 +5,7 @@ export default class ChatService {
     getMessages = async () => {
         return 'getMessages';
     };
-    getChatRoom = async () => {
+    getChatRooms = async () => {
         return 'getChatRoom';
     };
     joinChatRoom = async () => {

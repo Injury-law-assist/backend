@@ -7,15 +7,19 @@ export default class ChatController {
     constructor(@Inject(() => ChatService) private readonly chatService: ChatService) {}
 
     getMessages = async (req: Request, res: Response, next: NextFunction) => {
-        return res.status(200).json({ msg: await this.chatService.getMessages() });
+        const messages = await this.chatService.getMessages();
+        return res.status(200).json({ messages });
     };
     getChatRoom = async (req: Request, res: Response, next: NextFunction) => {
-        return res.status(200).json({ msg: await this.chatService.getChatRoom() });
+        const chatRooms = await this.chatService.getChatRooms();
+        return res.status(200).json({ chatRooms });
     };
     joinChatRoom = async (req: Request, res: Response, next: NextFunction) => {
-        return res.status(200).json({ msg: await this.chatService.joinChatRoom() });
+        const newChatRoom = await this.chatService.joinChatRoom();
+        return res.status(200).json({ newChatRoom });
     };
     exitChatRoom = async (req: Request, res: Response, next: NextFunction) => {
-        return res.status(200).json({ msg: await this.chatService.exitChatRoom() });
+        await this.chatService.exitChatRoom();
+        return res.status(200).json({ msg: 'successfully deleted' });
     };
 }
