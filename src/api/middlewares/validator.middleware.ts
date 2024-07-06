@@ -1,15 +1,14 @@
 import {Request, Response, NextFunction } from "express";
 import {ValidationError} from "joi";
-import { UserSchema} from "../../schemas/user.schema";
-import {ChatRoomSchema}from "../../schemas/chatRoom.schema";
-import {JoinRoomSchema}from "../../schemas/joinRoom.schema";
-import {MessageSchema}from "../../schemas/message.schema";
+import { postUserSchema, getUserSchema} from "../../schemas/user.schema";
+import {postChatRoomSchema, getChatRoomSchema}from "../../schemas/chatRoom.schema";
+import {postMessageSchema, getMessageSchema}from "../../schemas/message.schema";
 
-const serValidator =  async(req : Request, res : Response, next : NextFunction)=>{
+export const postUserValidator =  async(req : Request, res : Response, next : NextFunction)=>{
     try{
-        const user = req.body;
+        const postUser = req.body;
 
-        const result = await UserSchema.validateAsync(user); 
+        const result = await postUserSchema.validateAsync(postUser); 
         
         if(!result){
             throw new Error();
@@ -17,19 +16,35 @@ const serValidator =  async(req : Request, res : Response, next : NextFunction)=
         
         next();
     }catch(error){
-        if(error instanceof ValidationError){
-            res.status(500).send(`User Validation error : ${error.message}`);
-        }else{
-            res.status(500).send(`User err :  ${error}`);
-        }
+        // if(error instanceof ValidationError){
+        //     res.status(500).send(`User Validation error : ${error.message}`);
+        // }else{
+        //     res.status(500).send(`User err :  ${error}`);
+        // }
     }
 }; 
 
-const chatRoomValidator = async(req : Request, res : Response, next : NextFunction)=>{
+export const getUserValidator =  async(req : Request, res : Response, next : NextFunction)=>{
     try{
-        const chatRoom = req.body;
+        const getUser = req.body;
 
-        const result = await ChatRoomSchema.validateAsync(chatRoom);
+        const result = await getUserSchema.validateAsync(getUser); 
+        
+        if(!result){
+            throw new Error();
+        }
+        
+        next();
+    }catch(error){
+
+    }
+}; 
+
+export const postChatRoomValidator = async(req : Request, res : Response, next : NextFunction)=>{
+    try{
+        const postChatRoom = req.body;
+
+        const result = await postChatRoomSchema.validateAsync(postChatRoom);
 
         if(!result){
             throw new Error();
@@ -37,19 +52,15 @@ const chatRoomValidator = async(req : Request, res : Response, next : NextFuncti
         
         next();
     }catch(error){
-        if(error instanceof ValidationError){
-            res.status(500).send(`ChatRoom Validation error : ${error.message}`);
-        }else{
-            res.status(500).send(`ChatRoom err :  ${error}`);
-        }
+        
     }
 }
 
-const joinRoomValidator = async(req : Request, res : Response, next : NextFunction)=>{
+export const getChatRoomValidator = async(req : Request, res : Response, next : NextFunction)=>{
     try{
-        const joinRoom = req.body;
+        const getChatRoom = req.body;
 
-        const result = await JoinRoomSchema.validateAsync(joinRoom);
+        const result = await getChatRoomSchema.validateAsync(getChatRoom);
 
         if(!result){
             throw new Error();
@@ -57,19 +68,15 @@ const joinRoomValidator = async(req : Request, res : Response, next : NextFuncti
         
         next();
     }catch(error){
-        if(error instanceof ValidationError){
-            res.status(500).send(`JoinRoom Validation error : ${error.message}`);
-        }else{
-            res.status(500).send(`JoinRoom err :  ${error}`);
-        }
+        
     }
 }
 
-const MessageValidator = async(req : Request, res : Response, next : NextFunction)=>{
+export const postmessageValidator = async(req : Request, res : Response, next : NextFunction)=>{
     try{
-        const message = req.body;
+        const postMessage = req.body;
 
-        const result = await MessageSchema.validateAsync(message);
+        const result = await postMessageSchema.validateAsync(postMessage);
 
         if(!result){
             throw new Error();
@@ -77,12 +84,22 @@ const MessageValidator = async(req : Request, res : Response, next : NextFunctio
         
         next();
     }catch(error){
-        if(error instanceof ValidationError){
-            res.status(500).send(`Message Validation error : ${error.message}`);
-        }else{
-            res.status(500).send(`Message err :  ${error}`);
+        
+    }
+}
+export const getmessageValidator = async(req : Request, res : Response, next : NextFunction)=>{
+    try{
+        const getMessage = req.body;
+
+        const result = await getMessageSchema.validateAsync(getMessage);
+
+        if(!result){
+            throw new Error();
         }
+        
+        next();
+    }catch(error){
+        
     }
 }
 
-export {serValidator, chatRoomValidator, joinRoomValidator, MessageValidator}

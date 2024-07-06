@@ -1,9 +1,6 @@
 import Joi from "joi";
 
-export const UserSchema = Joi.object({
-    u_id :Joi.number()
-            .integer(),
-
+export const postUserSchema = Joi.object({
     u_email : Joi.string()
                 .email({minDomainSegments : 2, tlds : {allow : ['com', 'net']}})
                 .required(),
@@ -16,9 +13,11 @@ export const UserSchema = Joi.object({
     u_nickName  : Joi.string()
                 .min(3)
                 .max(30)
-                .required(),
-    u_create_at : Joi.date()
-                .required(),
-    u_updated_at : Joi.date()
                 .required()
-});
+}).unknown(false);
+
+export const getUserSchema = Joi.object({
+    u_id : Joi.number()
+            .integer()
+            .required()
+}).unknown(false);

@@ -1,14 +1,16 @@
 import Joi from "joi";
 
-export const ChatRoomSchema = Joi.object({
+export const postChatRoomSchema = Joi.object({
+    title : Joi.string()
+            .required(),
+
+    u_id : Joi.number()
+        .integer()
+        .required(),
+}).unknown(false);
+
+export const getChatRoomSchema = Joi.object({
     cr_id : Joi.number()
-            .integer(),
-
-    cr_description : Joi.string(),
-
-    cr_created_at : Joi.date()
-                .required(),
-    
-    cr_updated_at : Joi.date()
-                .required()
-});
+            .integer()
+            .required()
+}).unknown(false);

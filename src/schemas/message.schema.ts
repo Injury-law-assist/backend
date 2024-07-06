@@ -1,9 +1,6 @@
 import Joi from 'joi';
 
-export const MessageSchema = Joi.object({
-	m_id: Joi.number()
-			.integer(),
-
+export const postMessageSchema = Joi.object({
 	cr_id: Joi.number()
 			.integer()
 			.required(),
@@ -14,10 +11,10 @@ export const MessageSchema = Joi.object({
 			
 	m_content: Joi.string()
 			.required(),
+}).unknown(false);
 
-	m_created_at: Joi.date()
-			.required(),
-
-	m_updated_at: Joi.date()
+export const getMessageSchema = Joi.object({
+	m_id : Joi.number()
+			.integer()
 			.required()
-});
+}).unknown(false);
