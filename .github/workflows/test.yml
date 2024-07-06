@@ -22,6 +22,12 @@ jobs:
               run: npm ci # npm ci를 사용하여 패키지를 더 빠르게 설치
 
             - name: Run tests
+              env:
+                  DB_HOST: ${{ secrets.DB_HOST }}
+                  DB_USER: ${{ secrets.DB_USER }}
+                  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+                  DB_DATABASE: ${{ secrets.DB_DATABASE }}
+                  DB_CONNECTION_LIMIT: ${{ secrets.DB_CONNECTION_LIMIT }}
               run: npm test
 
             - name: Save coverage report
