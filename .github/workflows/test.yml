@@ -5,6 +5,7 @@ on:
         branches:
             - '*'
             - 'feat/chat'
+            - 'feat/auth'
 
 jobs:
     ci-workflows:
