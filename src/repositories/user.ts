@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise';
 import { Inject, Service } from 'typedi';
 import { UserJoinRequestDTO } from '../dto/request/user';
+import { UserDTO } from '../dto/response/user';
 
 /**
  * CHECKLIST - AuthRepository
@@ -26,16 +27,12 @@ export default class UserRepository {
         }
     }
 
-    findOneByPk = async ({ email }: { email: string }) => {
+    findOneByPk = async ({ email }: { email: string }): Promise<UserDTO> => {
         const query = 'SELECT * FROM users WHERE u_email = ? limit 1';
-        return ((await this.executeQuery(query, [email])) as any)[0];
+        return (await this.executeQuery(query, [email]))[0];
     };
     create = async (user: UserJoinRequestDTO) => {
         const query = 'INSERT INTO users(u_email, u_password, u_nickname) values (?,?,?)';
-        try {
-            return await this.executeQuery(query, Object.values(user));
-        } catch (err) {
-            throw err;
-        }
+        return await this.executeQuery(query, Object.values(user));
     };
 }
