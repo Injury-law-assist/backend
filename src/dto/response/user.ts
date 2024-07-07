@@ -1,6 +1,6 @@
 import { CommonResponseDTO } from '.';
 
-export interface UserJoinDTO {
+export interface UserDTO {
     u_id: number;
     u_email: string;
     u_password: string;
@@ -14,5 +14,5 @@ export interface UserLoginDTO {
     accessToken: string;
 }
 
-export interface UserJoinResponseDTO extends CommonResponseDTO<UserJoinDTO> {}
+export interface UserJoinResponseDTO extends CommonResponseDTO<UserDTO> {}
 export interface UserLoginResponseDTO extends CommonResponseDTO<UserLoginDTO> {}
