@@ -1,0 +1,55 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "My API",
+        "description": "Description",
+        "version": "1.0.0"
+    },
+    "host": "localhost:8000",
+    "basePath": "/api/chat",
+    "schemes": ["http"],
+    "paths": {
+        "/": {
+            "get": {
+                "description": "",
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "description": "",
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/{r_id}": {
+            "delete": {
+                "description": "",
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/{r_id}/messages": {
+            "get": {
+                "description": "",
+                "responses": {
+                    "default": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    },
+    "x-cors": {
+        "enabled": true,
+        "description": "Cross-Origin Resource Sharing (CORS) is supported for this API."
+    }
+}
