@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction } from "express";
 import {ValidationError} from "joi";
-import {postChatRoomSchema, getChatRoomSchema}from "../../../schemas/chatRoom.schema";
-import {postMessageSchema, getMessageSchema}from "../../../schemas/message.schema";
+import {postChatRoomSchema, getChatRoomSchema}from "../../../schemas/chat.schema";
+import {postMessageSchema, getMessageSchema}from "../../../schemas/chat.schema";
 
 export const postChatRoomValidator = async(req : Request, res : Response, next : NextFunction)=>{
     const postChatRoom = req.body;
@@ -33,7 +33,7 @@ export const getChatRoomValidator = async(req : Request, res : Response, next : 
         console.log("validator Error")
         //throw new Error();
     }
-    
+
     next();
 }
 
