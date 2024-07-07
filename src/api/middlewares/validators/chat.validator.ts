@@ -37,7 +37,7 @@ export const getChatRoomValidator = async(req : Request, res : Response, next : 
     next();
 }
 
-export const postmessageValidator = async(req : Request, res : Response, next : NextFunction)=>{
+export const postMessageValidator = async(req : Request, res : Response, next : NextFunction)=>{
     const postMessage = req.body;
 
     const result = await postMessageSchema.validateAsync(postMessage);
@@ -49,7 +49,7 @@ export const postmessageValidator = async(req : Request, res : Response, next : 
     
     next();
 }
-export const getmessageValidator = async(req : Request, res : Response, next : NextFunction)=>{
+export const getMessageValidator = async(req : Request, res : Response, next : NextFunction)=>{
     const getMessage = req.body;
 
     const result = await getMessageSchema.validateAsync(getMessage);
