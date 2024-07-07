@@ -1,7 +1,6 @@
 import { Application, NextFunction, Request, Response } from 'express';
 import ChatService from '../../services/chat';
 import { Inject, Service } from 'typedi';
-
 /**
  * CHECKLIST
  * FIXME: guard middleware로 u_id 받기
