@@ -1,9 +1,9 @@
 import Joi from "joi";
-import { UserJoinDTO, UserLoginDTO } from "../dtos/user-request.dto";
+import { UserJoinRequestDTO, UserLoginRequestDTO } from "../dtos/request/user-request.dto";
 
-export const postJoinUserSchema = Joi.object<UserJoinDTO>({
+export const postJoinUserSchema = Joi.object<UserJoinRequestDTO>({
     email : Joi.string()
-                .email({minDomainSegments : 2, tlds : {allow : ['com', 'net']}})
+                .email()//.email({minDomainSegments : 2, tlds : {allow : ['com', 'net']}})
                 .required(),
 
     password : Joi.string()
@@ -17,7 +17,7 @@ export const postJoinUserSchema = Joi.object<UserJoinDTO>({
                 .required()
 }).unknown(false);
 
-export const postLoginUserSchema = Joi.object<UserLoginDTO>({
+export const postLoginUserSchema = Joi.object<UserLoginRequestDTO>({
     email : Joi.string()
                 .email({minDomainSegments : 2, tlds : {allow : ['com', 'net']}})
                 .required(),   
