@@ -1,8 +1,11 @@
 import { Application, NextFunction, Request, Response } from 'express';
 import ChatService from '../../services/chat';
 import { Inject, Service } from 'typedi';
-import error from '../middlewares/error';
 
+/**
+ * CHECKLIST
+ * FIXME: guard middleware로 u_id 받기
+ */
 @Service()
 export default class ChatController {
     constructor(@Inject(() => ChatService) private readonly chatService: ChatService) {}
