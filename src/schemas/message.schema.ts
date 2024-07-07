@@ -1,6 +1,7 @@
 import Joi from 'joi';
+import { RequestCreateMessageDTO, RequestGetMessageDTO } from '../dtos/chat.dto';
 
-export const postMessageSchema = Joi.object({
+export const postMessageSchema = Joi.object<RequestCreateMessageDTO>({
 	r_id: Joi.number()
 			.integer()
 			.required(),
@@ -13,7 +14,7 @@ export const postMessageSchema = Joi.object({
 			.required(),
 }).unknown(false);
 
-export const getMessageSchema = Joi.object({
+export const getMessageSchema = Joi.object<RequestGetMessageDTO>({
 	m_id : Joi.number()
 			.integer()
 			.required()

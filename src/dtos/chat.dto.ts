@@ -1,7 +1,18 @@
 export interface RequestCreateChatRoomDTO{
-    u_id : number,    
+    title : string;
+    u_id : number;   
 };
 
+export interface RequestGetChatRoomDTO{
+    r_id : number;
+}
+
 export interface RequestCreateMessageDTO{
-    r_id : number,
+    r_id : number;
+    u_id : number;
+    m_content : string;
 };
+
+export interface RequestGetMessageDTO{
+    m_id : number;
+}
