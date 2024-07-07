@@ -27,13 +27,17 @@ describe('/api/auth test', () => {
         const res = await request(app).post('/api/auth/join').send(userData);
 
         expect(res.statusCode).toBe(200);
-        expect(res.body).toHaveProperty('user');
-        expect(res.body.user).toHaveProperty('u_id');
-        expect(res.body.user).toHaveProperty('u_email', userData.email);
-        expect(res.body.user).toHaveProperty('u_nickname', userData.nickname);
-        expect(res.body.user).toHaveProperty('u_password'); // 비밀번호는 반환되면 안 됩니다 (일반적으로).
-        expect(res.body.user).toHaveProperty('u_created_at');
-        expect(res.body.user).toHaveProperty('u_updated_at');
+        expect(res.body).toHaveProperty('data');
+        expect(res.body).toHaveProperty('message');
+        expect(res.body).toHaveProperty('statusCode');
+
+        expect(res.body.message).toBe('가입에 성공하였습니다.');
+        expect(res.body.data).toHaveProperty('u_id');
+        expect(res.body.data).toHaveProperty('u_email', userData.email);
+        expect(res.body.data).toHaveProperty('u_nickname', userData.nickname);
+        expect(res.body.data).toHaveProperty('u_password'); // 비밀번호는 반환되면 안 됩니다 (일반적으로).
+        expect(res.body.data).toHaveProperty('u_created_at');
+        expect(res.body.data).toHaveProperty('u_updated_at');
     });
 
     it('✅[GET /login] login - 정상', async () => {
@@ -42,8 +46,13 @@ describe('/api/auth test', () => {
             password: password,
         });
         expect(res.statusCode).toBe(200);
-        expect(res.body).toHaveProperty('msg');
-        expect(res.body.msg).toBe('token');
+        expect(res.body).toHaveProperty('data');
+        expect(res.body).toHaveProperty('message');
+        expect(res.body).toHaveProperty('statusCode');
+
+        expect(res.body.message).toBe('로그인에 성공하였습니다.');
+        expect(res.body.data).toHaveProperty('refreshToken', 'refreshToken');
+        expect(res.body.data).toHaveProperty('accessToken', 'accessToken');
     });
 
     it('✅[GET /login] login - 아이디 존재x', async () => {
