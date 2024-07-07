@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 export const postMessageSchema = Joi.object({
-	cr_id: Joi.number()
+	r_id: Joi.number()
 			.integer()
 			.required(),
 

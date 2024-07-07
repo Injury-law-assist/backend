@@ -5,12 +5,12 @@ export const postChatRoomSchema = Joi.object({
             .required(),
 
     u_id : Joi.number()
-        .integer()
-        .required(),
+            .integer()
+            .required(),
 }).unknown(false);
 
 export const getChatRoomSchema = Joi.object({
-    cr_id : Joi.number()
+    r_id : Joi.number()
             .integer()
             .required()
 }).unknown(false);

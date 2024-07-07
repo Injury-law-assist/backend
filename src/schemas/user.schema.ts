@@ -15,9 +15,3 @@ export const postUserSchema = Joi.object({
                 .max(30)
                 .required()
 }).unknown(false);
-
-export const getUserSchema = Joi.object({
-    u_id : Joi.number()
-            .integer()
-            .required()
-}).unknown(false);
