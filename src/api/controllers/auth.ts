@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import AuthService from '../../services/auth';
 import { Inject, Service } from 'typedi';
-import { UserJoinDTO, UserLoginDTO } from '../../dto/user-request-dto';
+import { UserJoinRequestDTO, UserLoginRequestDTO } from '../../dto/request/user-request-dto';
+import { UserJoinResponseDTO, UserLoginResponseDTO } from '../../dto/response/user-response-dto';
 
 @Service()
 export default class AuthController {
@@ -9,9 +10,9 @@ export default class AuthController {
 
     login = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { email, password } = req.body as UserLoginDTO;
-            const token = await this.authService.login({ email, password });
-            return res.status(200).json({ msg: token });
+            const { email, password } = req.body as UserLoginRequestDTO;
+            const userLoginResponseDTO: UserLoginResponseDTO = await this.authService.login({ email, password });
+            return res.status(200).json(userLoginResponseDTO);
         } catch (err) {
             next(err);
         }
@@ -19,9 +20,9 @@ export default class AuthController {
 
     join = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const newUser = req.body as UserJoinDTO;
-            const createdUser = await this.authService.join(newUser);
-            return res.status(200).json({ user: createdUser });
+            const newUser = req.body as UserJoinRequestDTO;
+            const userJoinResponseDTO: UserJoinResponseDTO = await this.authService.join(newUser);
+            return res.status(200).json(userJoinResponseDTO);
         } catch (err) {
             next(err);
         }
