@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { CreateChatRoomRequestDTO, GetChatRoomRequestDTO } from "../dtos/request/chat-request.dto";
-import { CreateMessageRequestDTO, GetMessageRequestDTO } from '../dtos/request/chat-request.dto';
+import { CreateChatRoomRequestDTO, GetChatRoomRequestDTO } from "../dtos/request/chat.dto";
+import { CreateMessageRequestDTO, GetMessageRequestDTO } from '../dtos/request/chat.dto';
 
 export const postChatRoomSchema = Joi.object<CreateChatRoomRequestDTO>({
     title : Joi.string()

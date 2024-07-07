@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { UserJoinRequestDTO, UserLoginRequestDTO } from "../dtos/request/user-request.dto";
+import { UserJoinRequestDTO, UserLoginRequestDTO } from "../dtos/request/user.dto";
 
 export const postJoinUserSchema = Joi.object<UserJoinRequestDTO>({
     email : Joi.string()
