@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import AuthService from '../../services/auth';
 import { Inject, Service } from 'typedi';
-import { UserJoinRequestDTO, UserLoginRequestDTO } from '../../dto/request/user-request-dto';
-import { UserJoinResponseDTO, UserLoginResponseDTO } from '../../dto/response/user-response-dto';
+import { UserJoinRequestDTO, UserLoginRequestDTO } from '../../dto/request/user';
+import { UserJoinResponseDTO, UserLoginResponseDTO } from '../../dto/response/user';
 
 @Service()
 export default class AuthController {

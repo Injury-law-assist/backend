@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise';
 import { Inject, Service } from 'typedi';
-import { UserJoinRequestDTO } from '../dto/request/user-request-dto';
+import { UserJoinRequestDTO } from '../dto/request/user';
 
 /**
  * CHECKLIST - AuthRepository
