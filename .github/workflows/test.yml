@@ -20,7 +20,7 @@ jobs:
                   node-version: '20' # 최신 권장 버전인 Node.js 20 사용
 
             - name: Install dependencies
-              run: npm ci # npm ci를 사용하여 패키지를 더 빠르게 설치
+              run: npm i # npm ci를 사용하여 패키지를 더 빠르게 설치
 
             - name: Run tests
               env:
