@@ -1,36 +1,56 @@
 import { Inject, Service } from 'typedi';
 import UserRepository from '../repositories/user';
 import { UserJoinRequestDTO, UserLoginRequestDTO } from '../dto/request/user';
-import { UserJoinResponseDTO, UserLoginResponseDTO, UserDTO } from '../dto/response/user';
+import { UserJoinResponseDTO, UserLoginResponseDTO } from '../dto/response/user';
+import JwtService from './jwt';
 
-/**[ ] password encrypt 추가 */
 @Service()
 export default class AuthService {
-    constructor(@Inject(() => UserRepository) private readonly userRepository: UserRepository) {}
-    generateToken() {
-        /**[ ] jwt 토큰 발행 로직 추가 */
-        return ['refreshToken', 'accessToken'];
-    }
+    constructor(
+        @Inject(() => UserRepository) private readonly userRepository: UserRepository,
+        @Inject(() => JwtService) private readonly jwtService: JwtService,
+    ) {}
+
+    /**
+     * 사용자 로그인 처리
+     * @param {UserLoginRequestDTO} { email, password }
+     * @returns {Promise<UserLoginResponseDTO>}
+     */
     login = async ({ email, password }: UserLoginRequestDTO): Promise<UserLoginResponseDTO> => {
-        const existingUser = await this.userRepository.findOneByPk({ email: email });
+        const user = await this.userRepository.findOneByPk({ email });
 
-        if (!existingUser) throw new Error('존재하지않는 아이디입니다.');
+        if (!user) {
+            throw new Error('존재하지 않는 아이디입니다.');
+        }
 
-        if (existingUser.u_password !== password) throw new Error('비밀번호가 일치하지않습니다.');
+        if (user.u_password !== password) {
+            throw new Error('비밀번호가 일치하지 않습니다.');
+        }
 
-        const [refreshToken, accessToken] = this.generateToken();
+        const { u_password, ...payload } = user; // 비밀번호 필드 제외한 페이로드 생성
+        const [accessToken, refreshToken] = await this.generateToken(payload);
+
         const userLoginResponseDTO: UserLoginResponseDTO = {
             statusCode: 200,
             message: '로그인에 성공하였습니다.',
-            data: { refreshToken, accessToken },
+            data: { accessToken, refreshToken },
         };
         return userLoginResponseDTO;
     };
+
+    /**
+     * 사용자 가입 처리
+     * @param {UserJoinRequestDTO} user
+     * @returns {Promise<UserJoinResponseDTO>}
+     */
     join = async (user: UserJoinRequestDTO): Promise<UserJoinResponseDTO> => {
         const existingUser = await this.userRepository.findOneByPk({ email: user.email });
-        console.log(existingUser);
-        if (existingUser) throw new Error('이미 존재하는 이메일입니다.');
+        if (existingUser) {
+            throw new Error('이미 존재하는 이메일입니다.');
+        }
+
         await this.userRepository.create(user);
+
         const createdUser = await this.userRepository.findOneByPk({ email: user.email });
         const userJoinResponseDTO: UserJoinResponseDTO = {
             statusCode: 200,
@@ -38,5 +58,14 @@ export default class AuthService {
             data: createdUser,
         };
         return userJoinResponseDTO;
+    };
+
+    /**
+     * JWT 토큰 생성 메서드
+     * @param {Object} payload
+     * @returns {Promise<[string, string]>} [accessToken, refreshToken]
+     */
+    private generateToken = async (payload: Object): Promise<[string, string]> => {
+        return [this.jwtService.generateAccessToken(payload), this.jwtService.generateRefreshToken(payload)];
     };
 }
