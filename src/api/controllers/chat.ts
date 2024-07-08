@@ -1,9 +1,10 @@
-import { Application, NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import ChatService from '../../services/chat';
 import { Inject, Service } from 'typedi';
+import { Payload } from '../../types/express';
+import { GetChatRoomsResponseDTO, GetMessagesResponseDTO, GenerateChatRoomResponseDTO, DeleteChatRoomResponseDTO, ChatRoomDTO } from '../../dto/response/chat';
 /**
  * CHECKLIST
- * FIXME: guard middleware로 u_id 받기
  */
 @Service()
 export default class ChatController {
@@ -11,36 +12,40 @@ export default class ChatController {
 
     getMessages = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const r_id = parseInt(req.params.r_id) as number;
-            const messages = await this.chatService.getMessages({ r_id });
-            return res.status(200).json({ messages });
+            const { u_id }: { u_id: number } = req.user as Payload;
+            const r_id: number = parseInt(req.params.r_id);
+            const messageResponseDTO: GetMessagesResponseDTO = await this.chatService.getMessages({ r_id, u_id });
+            console.log(messageResponseDTO);
+            return res.status(200).json(messageResponseDTO);
         } catch (err) {
             return next(err);
         }
     };
-    getChatRoom = async (req: Request, res: Response, next: NextFunction) => {
+    getChatRooms = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const u_id = 1;
-            const chatRooms = await this.chatService.getChatRooms({ u_id });
-            return res.status(200).json({ chatRooms });
+            const { u_id }: { u_id: number } = req.user as Payload;
+            const chatRoomResponseDTO: GetChatRoomsResponseDTO = await this.chatService.getChatRooms({ u_id });
+            return res.status(200).json(chatRoomResponseDTO);
         } catch (err) {
             return next(err);
         }
     };
     generateChatRoom = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const u_id = 1;
-            const newChatRoom = await this.chatService.generateChatRoom({ u_id });
-            return res.status(200).json({ newChatRoom });
+            const { u_id }: { u_id: number } = req.user as Payload;
+
+            const { title }: { title: string } = req.body;
+            const chatRoomResponseDTO = await this.chatService.generateChatRoom({ u_id, title });
+            return res.status(200).json(chatRoomResponseDTO);
         } catch (err) {
             return next(err);
         }
     };
     deleteChatRoom = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const r_id = parseInt(req.params.r_id) as number;
-            await this.chatService.deleteChatRoom({ r_id });
-            return res.status(200).json({ msg: 'successfully deleted' });
+            const r_id: number = parseInt(req.params.r_id);
+            const chatRoomResponseDTO: DeleteChatRoomResponseDTO = await this.chatService.deleteChatRoom({ r_id });
+            return res.status(200).json(chatRoomResponseDTO);
         } catch (err) {
             return next(err);
         }
