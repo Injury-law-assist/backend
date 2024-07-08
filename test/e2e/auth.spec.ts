@@ -51,21 +51,21 @@ describe('/api/auth test', () => {
         expect(res.body).toHaveProperty('statusCode');
 
         expect(res.body.message).toBe('로그인에 성공하였습니다.');
-        expect(res.body.data).toHaveProperty('refreshToken', 'refreshToken');
-        expect(res.body.data).toHaveProperty('accessToken', 'accessToken');
+        expect(res.body.data).toHaveProperty('refreshToken');
+        expect(res.body.data).toHaveProperty('accessToken');
     });
 
     it('✅[GET /login] login - 아이디 존재x', async () => {
         const res = await request(app)
             .post('/api/auth/login')
             .send({
-                email: email + 'asdasdasd',
+                email: 'asdasdasd' + email,
                 password: password,
             });
         expect(res.statusCode).toBe(500);
         expect(res.body).toHaveProperty('message');
         expect(res.body).toHaveProperty('error');
-        expect(res.body.error).toBe('존재하지않는 아이디입니다.');
+        expect(res.body.error).toBe('존재하지 않는 아이디입니다.');
     });
 
     it('✅[GET /login] login - 비밀번호 불일치', async () => {
@@ -78,6 +78,6 @@ describe('/api/auth test', () => {
         expect(res.statusCode).toBe(500);
         expect(res.body).toHaveProperty('message');
         expect(res.body).toHaveProperty('error');
-        expect(res.body.error).toBe('비밀번호가 일치하지않습니다.');
+        expect(res.body.error).toBe('비밀번호가 일치하지 않습니다.');
     });
 });
