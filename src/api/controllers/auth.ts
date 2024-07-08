@@ -14,7 +14,7 @@ export default class AuthController {
             const userLoginResponseDTO: UserLoginResponseDTO = await this.authService.login({ email, password });
             return res.status(200).json(userLoginResponseDTO);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     };
 
@@ -24,7 +24,7 @@ export default class AuthController {
             const userJoinResponseDTO: UserJoinResponseDTO = await this.authService.join(newUser);
             return res.status(200).json(userJoinResponseDTO);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     };
 }
