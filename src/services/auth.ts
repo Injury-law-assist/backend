@@ -3,7 +3,7 @@ import UserRepository from '../repositories/user';
 import { UserJoinRequestDTO, UserLoginRequestDTO } from '../dto/request/user';
 import { UserJoinResponseDTO, UserLoginResponseDTO } from '../dto/response/user';
 import JwtService from './jwt';
-
+/**[ ] bcrypt 추가 */
 @Service()
 export default class AuthService {
     constructor(
