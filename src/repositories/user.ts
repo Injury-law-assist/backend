@@ -2,6 +2,7 @@ import mysql from 'mysql2/promise';
 import { Inject, Service } from 'typedi';
 import { UserJoinRequestDTO } from '../dto/request/user';
 import { UserDTO } from '../dto/response/user';
+import Repository from '.';
 
 /**
  * CHECKLIST - AuthRepository
@@ -11,22 +12,10 @@ import { UserDTO } from '../dto/response/user';
  *  [x] insert 함수로 구현
  */
 @Service()
-export default class UserRepository {
-    constructor(@Inject('pool') private readonly pool: mysql.Pool) {}
-    private async executeQuery(query: string, values: any[] = []): Promise<any> {
-        let connection: mysql.PoolConnection | null = null;
-        try {
-            connection = await this.pool.getConnection();
-            const [result, fields] = await connection.query(query, values);
-            return result;
-        } catch (error) {
-            console.error(`Error executing query: ${query}`, error);
-            throw error;
-        } finally {
-            if (connection) connection.release();
-        }
+export default class UserRepository extends Repository {
+    constructor(@Inject('pool') pool: mysql.Pool) {
+        super(pool);
     }
-
     findOneByPk = async ({ email }: { email: string }): Promise<UserDTO> => {
         const query = 'SELECT * FROM users WHERE u_email = ? limit 1';
         return (await this.executeQuery(query, [email]))[0];
