@@ -23,6 +23,7 @@ describe('/api/auth test', () => {
             password: 'password123',
             nickname: 'TestUser',
         };
+        console.log(userData);
         password = userData.password;
         const res = await request(app).post('/api/auth/join').send(userData);
 
