@@ -1,63 +1,21 @@
-import { Request, Response, NextFunction } from 'express';
-import { ValidationError } from 'joi';
-import { postChatRoomSchema, getChatRoomSchema } from '../../schemas/chat.schema';
-import { postMessageSchema, getMessageSchema } from '../../schemas/chat.schema';
+import Joi from 'joi';
+import { CreateChatRoomRequestDTO, GetChatRoomRequestDTO, CreateMessageRequestDTO, GetMessageRequestDTO } from '../../dto/request/chat';
 
-export const postChatRoomValidator = async (req: Request, res: Response, next: NextFunction) => {
-    const postChatRoom = req.body;
+export const postChatRoomValidator = Joi.object<CreateChatRoomRequestDTO>({
+    title: Joi.string().required(),
+    u_id: Joi.number().integer().required(),
+}).unknown(false);
 
-    const result = await postChatRoomSchema.validateAsync(postChatRoom);
+export const getChatRoomValidator = Joi.object<GetChatRoomRequestDTO>({
+    r_id: Joi.number().integer().required(),
+}).unknown(false);
 
-    if (!result) {
-        console.log('validator Error');
-        //throw new Error();
-    }
+export const postMessageValidator = Joi.object<CreateMessageRequestDTO>({
+    r_id: Joi.number().integer().required(),
+    u_id: Joi.number().integer().required(),
+    m_content: Joi.string().required(),
+}).unknown(false);
 
-    next();
-
-    /** catch(error){
-        if(error instanceof ValidationError){
-            res.status(500).send(`User Validation error : ${error.message}`);
-        }else{
-            res.status(500).send(`User err :  ${error}`);
-        }
-    } */
-};
-
-export const getChatRoomValidator = async (req: Request, res: Response, next: NextFunction) => {
-    const getChatRoom = req.body;
-
-    const result = await getChatRoomSchema.validateAsync(getChatRoom);
-
-    if (!result) {
-        console.log('validator Error');
-        //throw new Error();
-    }
-
-    next();
-};
-
-export const postMessageValidator = async (req: Request, res: Response, next: NextFunction) => {
-    const postMessage = req.body;
-
-    const result = await postMessageSchema.validateAsync(postMessage);
-
-    if (!result) {
-        console.log('validator Error');
-        //throw new Error();
-    }
-
-    next();
-};
-export const getMessageValidator = async (req: Request, res: Response, next: NextFunction) => {
-    const getMessage = req.body;
-
-    const result = await getMessageSchema.validateAsync(getMessage);
-
-    if (!result) {
-        console.log('validator Error');
-        //throw new Error();
-    }
-
-    next();
-};
+export const getMessageValidator = Joi.object<GetMessageRequestDTO>({
+    m_id: Joi.number().integer().required(),
+}).unknown(false);
