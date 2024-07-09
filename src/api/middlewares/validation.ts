@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { userLoginValidator, userJoinValidator } from '../validators/user';
-import { postChatRoomValidator, getChatRoomValidator, postMessageValidator, getMessageValidator } from '../validators/chat';
+import { postChatRoomValidator, getChatRoomValidator, deleteChatRoomValidator, postMessageValidator, getMessageValidator } from '../validators/chat';
 import { Service } from 'typedi';
 
 @Service()
@@ -54,6 +54,19 @@ export class ValidationMiddleware {
 
         if (!result) {
             console.log('validatorGetChatRoom Error');
+            //throw new Error();
+        }
+
+        next();
+    };
+
+    validationDeleteChatRoom = async (req: Request, res: Response, next: NextFunction) => {
+        const deleteChatRoom = req.body;
+
+        const result = await deleteChatRoomValidator.validateAsync(deleteChatRoom);
+
+        if (!result) {
+            console.log('validationDeleteChatRoom Error');
             //throw new Error();
         }
 
