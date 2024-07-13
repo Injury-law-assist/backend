@@ -1,14 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import ChatService from '../../services/chat';
 import { Inject, Service } from 'typedi';
-<<<<<<< Updated upstream
-
-=======
-/**
- * CHECKLIST
- * FIXME: guard middleware로 u_id 받기
- */
->>>>>>> Stashed changesimport { Payload } from '../../types/express';
+import { Payload } from '../../types/express';
 import { GetChatRoomsResponseDTO, GetMessagesResponseDTO, GenerateChatRoomResponseDTO, DeleteChatRoomResponseDTO, ChatRoomDTO } from '../../dto/response/chat';
 /**
  * CHECKLIST
