@@ -15,9 +15,9 @@ export default async () => {
         });
 
         // 연결 풀에서 연결을 가져와서 테스트해볼 수 있습니다.
-        const connection = await pool.getConnection();
-        console.log('MySQL 연결 성공!');
-        connection.release(); // 연결을 사용한 후 반드시 해제해야 합니다.
+        // const connection = await pool.getConnection();
+        // console.log('MySQL 연결 성공!');
+        // connection.release(); // 연결을 사용한 후 반드시 해제해야 합니다.
 
         return pool;
     } catch (err) {
