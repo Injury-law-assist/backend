@@ -9,7 +9,7 @@ export default class MessageRepository extends Repository {
         super(pool);
     }
     async findAllByRoomId({ r_id }: { r_id: number }): Promise<MessageDTO[]> {
-        const query = 'SELECT * FROM messages WHERE cr_id = ?';
+        const query = 'SELECT * FROM messages WHERE cr_id = ? order by m_created_at desc';
         return (await this.executeQuery(query, [r_id])) as MessageDTO[];
     }
 }
