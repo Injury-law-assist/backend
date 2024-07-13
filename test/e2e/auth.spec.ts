@@ -19,9 +19,9 @@ describe('/api/auth test', () => {
         email = `testuser_${currentDate}@example.com`;
 
         const userData = {
-            email: email,
             password: 'password123',
             nickname: 'TestUser',
+            email: email,
         };
         console.log(userData);
         password = userData.password;

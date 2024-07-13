@@ -10,7 +10,7 @@ export default class ChatRepository extends Repository {
     }
 
     async findAllByUid({ u_id }: { u_id: number }): Promise<ChatRoomDTO[]> {
-        const query = 'SELECT * FROM chatRooms WHERE u_id = ?';
+        const query = 'SELECT * FROM chatRooms WHERE u_id = ? order by cr_created_at desc';
         return (await this.executeQuery(query, [u_id])) as ChatRoomDTO[];
     }
 
