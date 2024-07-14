@@ -3,6 +3,8 @@ import { Inject, Service } from 'typedi';
 import { ChatRoomDTO } from '../dto/response/chat';
 import Repository from '.';
 
+//TODO: Chatpagenaion query 적용하기
+
 @Service()
 export default class ChatRepository extends Repository {
     constructor(@Inject('pool') pool: mysql.Pool) {
@@ -15,7 +17,7 @@ export default class ChatRepository extends Repository {
     }
 
     async findOneByRoomId({ r_id }: { r_id: number }): Promise<ChatRoomDTO> {
-        const query = 'SELECT * FROM chatRooms WHERE cr_id = ? limit 1';
+        const query = 'SELECT * FROM chatRooms WHERE r_id = ? limit 1';
         return (await this.executeQuery(query, [r_id]))[0];
     }
     async create({ u_id, title }: { u_id: number; title: string }) {
@@ -29,7 +31,7 @@ export default class ChatRepository extends Repository {
     }
 
     async delete({ r_id }: { r_id: number }) {
-        const query = 'DELETE FROM chatRooms WHERE cr_id = ?';
+        const query = 'DELETE FROM chatRooms WHERE r_id = ?';
         try {
             await this.executeQuery(query, [r_id]);
             return 'success';
