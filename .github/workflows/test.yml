@@ -6,6 +6,8 @@ on:
             - '*'
             - 'feat/chat'
             - 'feat/auth'
+            - 'feat/chat_status'
+            - 'feat/*'
 
 jobs:
     ci-workflows:

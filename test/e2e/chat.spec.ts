@@ -41,6 +41,23 @@ describe('/api/chat test', () => {
         expect(res.body).toHaveProperty('data');
         cr_id = res.body.data.cr_id;
     });
+    it('✅[ POST / ] ChatRoomStatus', async () => {
+        const res = await request(app).post(`/api/chat/${cr_id}/status`).set('Authorization', `Bearer ${accessToken}`).send({
+            resolved: true,
+            grade: 5,
+            feedback: '피드백 없음',
+        });
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toHaveProperty('message', '채팅방 상태가 생성되었습니다.');
+    });
+    it('✅[ GET / ] getChatRoom - 종료된 채팅인지', async () => {
+        const res = await request(app).get('/api/chat').set('Authorization', `Bearer ${accessToken}`);
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toHaveProperty('message', '성공적으로 조회하였습니다.');
+        expect(res.body).toHaveProperty('data');
+        expect(Array.isArray(res.body.data)).toBe(true);
+        expect(res.body.data[0].crs_resolve).not.toBeNull();
+    });
 
     it('✅[ DELETE / ] exitChatRoom', async () => {
         const res = await request(app).delete(`/api/chat/${cr_id}`).set('Authorization', `Bearer ${accessToken}`);
