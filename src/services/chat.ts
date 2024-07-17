@@ -69,4 +69,12 @@ export default class ChatService {
             statusCode: 200,
         };
     }
+
+    async generateChatRoomStatus(chatRoomStatus: any) {
+        await this.chatRepository.generateChatRoomStatus(chatRoomStatus);
+        return {
+            message: '채팅방 상태가 생성되었습니다..',
+            statusCode: 200,
+        };
+    }
 }
