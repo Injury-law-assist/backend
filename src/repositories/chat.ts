@@ -39,8 +39,8 @@ export default class ChatRepository extends Repository {
             throw error;
         }
     }
-    async generateChatRoomStatus(chatRoomStatus: any) {
+    async generateChatRoomStatusByRoomId(cr_id: number, chatRoomStatus: any) {
         const query = 'INSERT INTO chatRoomStatus(cr_id, crs_resolve, crs_grade, crs_feedback) values (?,?,?,?)';
-        return await this.executeQuery(query, [chatRoomStatus.roomId, chatRoomStatus.resolved, chatRoomStatus.grade, chatRoomStatus.feedback]);
+        return await this.executeQuery(query, [cr_id, chatRoomStatus.resolved, chatRoomStatus.grade, chatRoomStatus.feedback]);
     }
 }

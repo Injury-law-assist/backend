@@ -43,10 +43,10 @@ export default class ChatController {
     };
     generateChatRoomStatus = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { u_id }: { u_id: number } = req.user as Payload;
+            const r_id: number = parseInt(req.params.r_id);
             const chatRoomStatus = req.body;
-            await this.chatService.updateChatRoomStatus(chatRoomStatus);
-            return res.status(200).json(chatRoomResponseDTO);
+            const generateChatRoomResponseDTO = await this.chatService.generateChatRoomStatus(r_id, chatRoomStatus);
+            return res.status(200).json(generateChatRoomResponseDTO);
         } catch (err) {
             return next(err);
         }

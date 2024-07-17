@@ -21,3 +21,4 @@ export interface GetMessagesResponseDTO extends CommonResponseDTO<MessageDTO[]> 
 export interface GetChatRoomsResponseDTO extends CommonResponseDTO<ChatRoomDTO[]> {}
 export interface GenerateChatRoomResponseDTO extends CommonResponseDTO<ChatRoomDTO> {}
 export interface DeleteChatRoomResponseDTO extends CommonResponseDTO<null> {}
+export interface GenerateChatRoomStatusDTO extends CommonResponseDTO<null> {}
