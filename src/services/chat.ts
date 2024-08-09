@@ -1,6 +1,6 @@
 import { Inject, Service } from 'typedi';
 import ChatRepository from './../repositories/chat';
-import { ChatRoomDTO, DeleteChatRoomResponseDTO, GenerateChatRoomResponseDTO, GetChatRoomsResponseDTO, GetMessagesResponseDTO } from '../dto/response/chat';
+import { ChatRoomDTO, DeleteChatRoomResponseDTO, GenerateChatRoomResponseDTO, GenerateChatRoomStatusDTO, GetChatRoomsResponseDTO, GetMessagesResponseDTO } from '../dto/response/chat';
 import MessageRepository from '../repositories/message';
 
 @Service()
@@ -66,6 +66,14 @@ export default class ChatService {
         await this.chatRepository.delete({ r_id });
         return {
             message: '삭제가 완료되었습니다.',
+            statusCode: 200,
+        };
+    }
+
+    async generateChatRoomStatus(cr_id: number, chatRoomStatus: any): Promise<GenerateChatRoomStatusDTO> {
+        await this.chatRepository.generateChatRoomStatusByRoomId(cr_id, chatRoomStatus);
+        return {
+            message: '채팅방 상태가 생성되었습니다.',
             statusCode: 200,
         };
     }

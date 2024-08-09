@@ -6,7 +6,7 @@ describe('/api/auth test', () => {
     let app: Application;
     let email: any = null;
     let password: any = null;
-    beforeAll(async () => {
+    beforeEach(async () => {
         app = await createApp();
     });
 
@@ -23,10 +23,9 @@ describe('/api/auth test', () => {
             nickname: 'TestUser',
             email: email,
         };
-        console.log(userData);
         password = userData.password;
         const res = await request(app).post('/api/auth/join').send(userData);
-
+        //console.log(res.body);
         expect(res.statusCode).toBe(200);
         expect(res.body).toHaveProperty('data');
         expect(res.body).toHaveProperty('message');

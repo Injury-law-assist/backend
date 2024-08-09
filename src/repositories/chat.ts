@@ -10,7 +10,8 @@ export default class ChatRepository extends Repository {
     }
 
     async findAllByUid({ u_id }: { u_id: number }): Promise<ChatRoomDTO[]> {
-        const query = 'SELECT * FROM chatRooms WHERE u_id = ? order by cr_created_at desc';
+        const query =
+            'SELECT c.cr_id, c.title, c.u_id, c.cr_created_at, c.cr_updated_at, crs_resolve, crs_grade, crs_feedback FROM chatRooms c left join chatRoomStatus cr on c.cr_id = cr.cr_id WHERE u_id = ? order by cr_created_at desc;';
         return (await this.executeQuery(query, [u_id])) as ChatRoomDTO[];
     }
 
@@ -37,5 +38,9 @@ export default class ChatRepository extends Repository {
             console.error(`Error deleting chat room: ${error}`);
             throw error;
         }
+    }
+    async generateChatRoomStatusByRoomId(cr_id: number, chatRoomStatus: any) {
+        const query = 'INSERT INTO chatRoomStatus(cr_id, crs_resolve, crs_grade, crs_feedback) values (?,?,?,?)';
+        return await this.executeQuery(query, [cr_id, chatRoomStatus.resolved, chatRoomStatus.grade, chatRoomStatus.feedback]);
     }
 }
